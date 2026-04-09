@@ -25,10 +25,10 @@ jobs:
 
     steps:
       - name: Check Out Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Set Up Hugo
         run: |
@@ -41,10 +41,20 @@ jobs:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
         run: hugo --gc --minify
 
+      - name: Package Pages Artifact
+        run: |
+          tar \
+            --dereference --hard-dereference \
+            --directory public \
+            -cvf "${{ runner.temp }}/github-pages.tar" .
+          gzip --force "${{ runner.temp }}/github-pages.tar"
+
       - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
-          path: ./public
+          name: github-pages
+          path: ${{ runner.temp }}/github-pages.tar.gz
+          retention-days: 1
 
   deploy:
     if: github.event_name == 'push'
