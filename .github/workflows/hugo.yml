@@ -41,19 +41,10 @@ jobs:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
         run: hugo --gc --minify
 
-      - name: Package Pages Artifact
-        run: |
-          tar \
-            --dereference --hard-dereference \
-            --directory public \
-            -cvf "${{ runner.temp }}/github-pages.tar" .
-          gzip --force "${{ runner.temp }}/github-pages.tar"
-
       - name: Upload Pages Artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-pages-artifact@v4.0.0
         with:
-          name: github-pages
-          path: ${{ runner.temp }}/github-pages.tar.gz
+          path: ./public
           retention-days: 1
 
   deploy:
