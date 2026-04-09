@@ -9,8 +9,6 @@ featured_image:
 description:
 ---
 
-### 章鱼花园 Vol. 5: The Brown M&M's Principle
-
 #### 科技
 
 - 关于 IP 定位的一个万能公式： 「为 xxx 人群，提供 xxx 价格的 xxx 服务，解决 xxx 问题」。带着这种思考方式去定义你的目标。 #Products 
@@ -51,11 +49,5 @@ description:
 
 ### 订阅章鱼花园
 
-- 微信公众号：追寻与归回
-
-    ![qrcode_for_gh_e9a17734e09c_258.jpg](/assets/images/2021/qrcode_for_gh_e9a17734e09c_258.jpg)
-
-
-- Notion: [章鱼花园期刊](https://www.notion.so/9012ebf6c9f94d699484e087752f54e4)
 - Substack: [https://octg.substack.com](https://octg.substack.com/)
 

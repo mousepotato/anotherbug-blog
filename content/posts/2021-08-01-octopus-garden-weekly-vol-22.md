@@ -9,8 +9,6 @@ featured_image:
 description:
 ---
 
-### 章鱼花园 Vol. 22: 0 Error(s), 0 Warning(s). ？！
-
 #### 科技
 - [List of Golang books](https://github.com/dariubs/GoBooks) Go 语言越来越火，未来语言我心中的排名大致是 JavaScript 第一， Go 语言第二。这里有一份书单，可以拿去看看。 #Programming 
 
@@ -34,10 +32,4 @@ description:
 
 ### 订阅章鱼花园
 
-- 微信公众号：追寻与归回
-
-    ![qrcode_for_gh_e9a17734e09c_258.jpg](/assets/images/2021/qrcode_for_gh_e9a17734e09c_258.jpg)
-
-
-- Notion: [章鱼花园期刊](https://www.notion.so/9012ebf6c9f94d699484e087752f54e4)
 - Substack: [https://octg.substack.com](https://octg.substack.com/)

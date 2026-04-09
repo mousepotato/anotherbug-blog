@@ -9,8 +9,6 @@ featured_image:
 description:
 ---
 
-### 章鱼花园 Vol. 6: The Unwinding 下沉年代
-
 #### 科技
 - [首个火星城市女娲 NÜWA CITY](https://www.popularmechanics.com/science/a35915975/mars-city-nuwa-plans/)：30万美金的单程车票，提供建造在岩壁内的25-30平房子，提供食物和设施，但是需要签署合同将个人的 60 -80% 时间用于工作。
 
@@ -41,10 +39,4 @@ description:
 
 ### 订阅章鱼花园
 
-- 微信公众号：追寻与归回
-
-    ![qrcode_for_gh_e9a17734e09c_258.jpg](/assets/images/2021/qrcode_for_gh_e9a17734e09c_258.jpg)
-
-
-- Notion: [章鱼花园期刊](https://www.notion.so/9012ebf6c9f94d699484e087752f54e4)
 - Substack: [https://octg.substack.com](https://octg.substack.com/)

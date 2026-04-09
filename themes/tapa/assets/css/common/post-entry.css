@@ -1,0 +1,140 @@
+.first-entry {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 320px;
+    margin: var(--gap) 0 calc(var(--gap) * 2) 0;
+}
+
+.first-entry .entry-header {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+.first-entry .entry-header h1 {
+    font-size: 34px;
+    line-height: 1.3;
+}
+
+.first-entry .entry-content {
+    margin: 14px 0;
+    font-size: 16px;
+    -webkit-line-clamp: 3;
+}
+
+.first-entry .entry-footer {
+    font-size: 14px;
+}
+
+.home-info .entry-content {
+    -webkit-line-clamp: unset;
+}
+
+.home-info {
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-height: 0;
+    max-width: 42rem;
+    padding: 0;
+    margin: calc(var(--gap) * 1.25) 0 calc(var(--gap) * 1.5) 0;
+}
+
+.home-info .entry-content {
+    display: block;
+    max-width: 32rem;
+    margin: 0 0 1.1rem;
+    color: var(--content);
+    font-size: 1.02rem;
+    line-height: 1.9;
+}
+
+.home-info .entry-footer {
+    margin-top: 0.1rem;
+}
+
+.home-info .social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    align-items: center;
+}
+
+.post-entry {
+    position: relative;
+    margin-bottom: var(--gap);
+    padding: var(--gap);
+    background: var(--entry);
+    border-radius: var(--radius);
+    transition: transform 0.1s;
+    border: 1px solid var(--border);
+    box-shadow: 0 16px 30px color-mix(in srgb, var(--accent-warm) 10%, transparent);
+}
+
+.post-entry:active {
+    transform: scale(0.96);
+}
+
+.tag-entry .entry-cover {
+    display: none;
+}
+
+.entry-header h2 {
+    font-size: 24px;
+    line-height: 1.3;
+}
+
+.entry-content {
+    margin: 8px 0;
+    color: var(--secondary);
+    font-size: 14px;
+    line-height: 1.6;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.entry-footer {
+    color: var(--secondary);
+    font-size: 13px;
+}
+
+.entry-link {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.entry-hint {
+    color: var(--secondary);
+}
+
+.entry-hint-parent {
+    display: flex;
+    justify-content: space-between;
+}
+
+.entry-cover {
+    font-size: 14px;
+    margin-bottom: var(--gap);
+    text-align: center;
+}
+
+.entry-cover img {
+    border-radius: var(--radius);
+    width: 100%;
+    height: auto;
+}
+
+.entry-cover a {
+    box-shadow: 0 1px 0 var(--primary);
+}
+
+.entry-header h2:hover {
+    color: var(--accent-warm);
+}

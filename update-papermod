@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
-git submodule update --init --remote themes/PaperMod
-git add themes/PaperMod
-git -C themes/PaperMod status --short --branch

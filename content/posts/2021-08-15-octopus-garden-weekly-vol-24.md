@@ -9,8 +9,6 @@ featured_image:
 description:
 ---
 
-### 章鱼花园 Vol. 24: 生当似鹏起，终当如鲸落
-
 > The future is already here - it's just not evenly distributed. William Gibson 未来已经来临，只是还没有平均分布。 威廉.吉布森，科幻小说作家
 
 
@@ -50,10 +48,4 @@ description:
 
 ### 订阅章鱼花园
 
-- 微信公众号：追寻与归回
-
-    ![qrcode_for_gh_e9a17734e09c_258.jpg](/assets/images/2021/qrcode_for_gh_e9a17734e09c_258.jpg)
-
-
-- Notion: [章鱼花园期刊](https://www.notion.so/9012ebf6c9f94d699484e087752f54e4)
 - Substack: [https://octg.substack.com](https://octg.substack.com/)

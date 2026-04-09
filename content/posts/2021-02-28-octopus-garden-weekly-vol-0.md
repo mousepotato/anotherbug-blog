@@ -9,8 +9,6 @@ featured_image:
 description:
 ---
 
-### 章鱼花园 Vol. 0： The Times They Are a-Changin' 
-
 **亲爱的叉子们，**
 
 欢迎来到「章鱼花园」第 0 期。这是一份争取每周更新的文档，记录我每周的所见和思考，~~主要分为 「科技」、「人文」和「随想」三个部分。~~ (Vol. 23 开始改成 「Sense」理性 和 「Sensibility」感性两个部分。)
@@ -116,10 +114,4 @@ For the times they are a-changin'
 
 ### 订阅章鱼花园
 
-- 微信公众号：追寻与归回
-
-    ![qrcode_for_gh_e9a17734e09c_258.jpg](/assets/images/2021/qrcode_for_gh_e9a17734e09c_258.jpg)
-
-
-- Notion: [章鱼花园期刊](https://www.notion.so/9012ebf6c9f94d699484e087752f54e4)
 - Substack: [https://octg.substack.com](https://octg.substack.com/)

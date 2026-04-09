@@ -9,8 +9,6 @@ featured_image:
 description:
 ---
 
-### 章鱼花园 Vol. 12: 人类越野史上最黑暗的一夜
-
 #### 科技
 - [《为什么闲鱼把网页版取消了？》](https://www.zhihu.com/question/323893304/answer/1884411788) 读罢怅然。
 
@@ -37,10 +35,4 @@ description:
 
 ### 订阅章鱼花园
 
-- 微信公众号：追寻与归回
-
-    ![qrcode_for_gh_e9a17734e09c_258.jpg](/assets/images/2021/qrcode_for_gh_e9a17734e09c_258.jpg)
-
-
-- Notion: [章鱼花园期刊](https://www.notion.so/9012ebf6c9f94d699484e087752f54e4)
 - Substack: [https://octg.substack.com](https://octg.substack.com/)

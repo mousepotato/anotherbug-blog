@@ -1,0 +1,165 @@
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'LXGW WenKai Web';
+    src: url('/assets/fonts/LXGWWenKai-Regular.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    unicode-range:
+        U+2000-206F,
+        U+3000-303F,
+        U+3400-4DBF,
+        U+4E00-9FFF,
+        U+F900-FAFF,
+        U+FF00-FFEF;
+}
+
+@font-face {
+    font-family: 'LXGW WenKai Web';
+    src: url('/assets/fonts/LXGWWenKai-Medium.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 500 700;
+    font-display: swap;
+    unicode-range:
+        U+2000-206F,
+        U+3000-303F,
+        U+3400-4DBF,
+        U+4E00-9FFF,
+        U+F900-FAFF,
+        U+FF00-FFEF;
+}
+
+html {
+    -webkit-tap-highlight-color: transparent;
+    overflow-y: scroll;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+a,
+button,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--primary);
+}
+
+body {
+    font-family: 'LXGW WenKai Web', Monaco, Menlo, Consolas, 'Lucida Console', 'Courier New', monospace;
+    font-size: 18px;
+    line-height: 1.6;
+    word-break: break-word;
+    background: var(--theme);
+}
+
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+table {
+    display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    line-height: 1.2;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+ul {
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    transition: color 0.16s ease, border-color 0.16s ease, background-color 0.16s ease;
+}
+
+a:hover {
+    color: var(--accent-teal);
+}
+
+body,
+figure,
+ul {
+    margin: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    overflow-x: auto;
+    word-break: keep-all;
+}
+
+button,
+input,
+textarea {
+    padding: 0;
+    font: inherit;
+    background: 0 0;
+    border: 0;
+}
+
+input,
+textarea {
+    outline: 0;
+}
+
+button,
+input[type=button],
+input[type=submit] {
+    cursor: pointer;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+    box-shadow: 0 0 0 50px var(--theme) inset;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+code,
+kbd,
+pre,
+samp {
+    font-family: Monaco, Menlo, Consolas, 'Lucida Console', 'Courier New', monospace;
+}
+
+::selection {
+    color: white;
+    background: var(--accent-warm);
+}

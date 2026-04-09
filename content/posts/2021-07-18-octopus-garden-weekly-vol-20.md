@@ -9,8 +9,6 @@ featured_image:
 description:
 ---
 
-### 章鱼花园 Vol. 20: Dream big, the sky is NOT the limit
-
 #### 科技
 - [The dawn of a new space age](https://www.space.com/virgin-galactic-richard-branson-unity-22-launch-reaction)  #Quotes  #Thought-provoking 
 	- I was once a child with a dream looking up to the stars. Now I'm an adult in a spaceship looking down to our beautiful Earth. To the next generation of dreamers: if we can do this, just imagine what you can do. - [Twitter By Richard Branson ](https://twitter.com/richardbranson/status/1414289206717865984)
@@ -36,10 +34,4 @@ description:
 
 ### 订阅章鱼花园
 
-- 微信公众号：追寻与归回
-
-    ![qrcode_for_gh_e9a17734e09c_258.jpg](/assets/images/2021/qrcode_for_gh_e9a17734e09c_258.jpg)
-
-
-- Notion: [章鱼花园期刊](https://www.notion.so/9012ebf6c9f94d699484e087752f54e4)
 - Substack: [https://octg.substack.com](https://octg.substack.com/)

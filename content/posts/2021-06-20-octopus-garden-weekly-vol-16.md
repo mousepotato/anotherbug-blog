@@ -9,7 +9,6 @@ featured_image:
 description:
 ---
 
-### 章鱼花园 Vol. 16: 我们仍未知道那天所看见的花的名字
 #### 科技
 - [wipi](https://github.com/fantasticit/wipi)Wipi 是一个面向个人的开源的集成文章发表、页面创建、知识小册等功能的 CMS 系统。基于 MySQL + next.js + nest.js 开发 #Frontend 
 
@@ -37,10 +36,4 @@ description:
 
 ### 订阅章鱼花园
 
-- 微信公众号：追寻与归回
-
-    ![qrcode_for_gh_e9a17734e09c_258.jpg](/assets/images/2021/qrcode_for_gh_e9a17734e09c_258.jpg)
-
-
-- Notion: [章鱼花园期刊](https://www.notion.so/9012ebf6c9f94d699484e087752f54e4)
 - Substack: [https://octg.substack.com](https://octg.substack.com/)

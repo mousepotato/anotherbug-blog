@@ -3,7 +3,7 @@ title = "鼠标土豆"
 languageCode = "zh-cn"
 DefaultContentLanguage = "zh-cn"
 hasCJKLanguage = true
-theme = "PaperMod"
+theme = "tapa"
 
 paginate = 15
 enableEmoji = true
@@ -15,7 +15,6 @@ home = ["HTML", "RSS", "JSON"]
 
 [taxonomies]
 tag = "tags"
-category = "categories"
 
 [markup]
   [markup.goldmark]
@@ -32,49 +31,29 @@ posts = "/:year/:month/:day/:slug"
 
 [menu]
   [[menu.main]]
-    name = "Blog"
+    name = "Posts"
     url = "/posts/"
     weight = 1
 
   [[menu.main]]
-    name = "Archives"
-    url = "/archives/"
-    weight = 2
-
-  [[menu.main]]
     name = "Tags"
     url = "/tags/"
-    weight = 3
-
-  [[menu.main]]
-    name = "Categories"
-    url = "/categories/"
-    weight = 4
-
-  [[menu.main]]
-    name = "Search"
-    url = "/search/"
-    weight = 5
+    weight = 2
 
   [[menu.main]]
     name = "Thoughts"
     url = "/thoughts/"
-    weight = 6
+    weight = 3
 
   [[menu.main]]
     name = "Uses"
     url = "/tools/"
-    weight = 7
+    weight = 4
 
   [[menu.main]]
     name = "About"
     url = "/about/"
-    weight = 8
-
-  [[menu.main]]
-    name = "Academics"
-    url = "/main/"
-    weight = 9
+    weight = 5
 
 [params]
   env = "production"
@@ -87,9 +66,9 @@ posts = "/:year/:month/:day/:slug"
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
-  ShowAllPagesInArchive = true
+  ShowAllPagesInArchive = false
   ShowPageNums = true
-  ShowToc = true
+  ShowToc = false
   disableSpecial1stPost = true
   mainSections = ["posts"]
   images = ["assets/images/profile.jpg"]

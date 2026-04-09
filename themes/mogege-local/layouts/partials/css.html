@@ -1,8 +1,0 @@
-{{ with resources.Get "css/main.scss" }}
-{{ $style := . | toCSS | minify }}
-<link rel="stylesheet" href="{{ $style.RelPermalink }}">
-{{ end }}
-
-{{ range .Site.Params.custom.css }}
-<link rel="stylesheet" href="{{ . | absURL }}">
-{{ end }}

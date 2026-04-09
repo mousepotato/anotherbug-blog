@@ -9,7 +9,6 @@ featured_image:
 description:
 ---
 
-### 章鱼花园 Vol. 14: 把自己交给繁忙，得到的是踏实，却不是真实
 #### 科技
 - [Stack Overflow Sold to Tech Giant Prosus for $1.8 Billion](https://www.wsj.com/articles/software-developer-community-stack-overflow-sold-to-tech-giant-prosus-for-1-8-billion-11622648400) 程序员生产力工具 Stack Overflow 18亿美金卖给了 Prosus。 Prosus 是 Tencent，Udemy， Codecademy等的股东。 #Products 
 
@@ -37,10 +36,4 @@ description:
 
 ### 订阅章鱼花园
 
-- 微信公众号：追寻与归回
-
-    ![qrcode_for_gh_e9a17734e09c_258.jpg](/assets/images/2021/qrcode_for_gh_e9a17734e09c_258.jpg)
-
-
-- Notion: [章鱼花园期刊](https://www.notion.so/9012ebf6c9f94d699484e087752f54e4)
 - Substack: [https://octg.substack.com](https://octg.substack.com/)

@@ -9,8 +9,6 @@ featured_image:
 description:
 ---
 
-### 章鱼花园 Vol. 4: 「我们这至暂至轻的苦楚，要为我们成就极重无比永远的荣耀」
-
 
 ```
 「我们这至暂至轻的苦楚，要为我们成就极重无比永远的荣耀。原来我们不是顾念所见的，乃是顾念所不见的；因为所见的是暂时的，所不见的是永远的。」
@@ -102,10 +100,4 @@ HAPPY PASSOVER!
 
 ### 订阅章鱼花园
 
-- 微信公众号：追寻与归回
-
-    ![qrcode_for_gh_e9a17734e09c_258.jpg](/assets/images/2021/qrcode_for_gh_e9a17734e09c_258.jpg)
-
-
-- Notion: [章鱼花园期刊](https://www.notion.so/9012ebf6c9f94d699484e087752f54e4)
 - Substack: [https://octg.substack.com](https://octg.substack.com/)

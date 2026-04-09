@@ -4,17 +4,16 @@ Source repo for `https://anotherbug.com`.
 
 This is a Hugo-based blog. Content lives in this repository, and GitHub Actions builds and publishes the site to GitHub Pages.
 
-The repo supports two theme configs:
+The site now uses a single local theme:
 
-- `PaperMod` as the default active theme
-- `mogege-local` as a rollback option
+- `tapa` in `themes/tapa/`
 
 ## Requirements
 
 - Hugo extended `0.160.1` or compatible
 - Git
 
-Local check:
+Check local Hugo:
 
 ```bash
 hugo version
@@ -28,114 +27,74 @@ Create a new post:
 ./new-post "My New Post"
 ```
 
-Edit the generated file under `content/posts/`.
-
 Preview locally:
 
 ```bash
-hugo server
+HUGO_CACHEDIR=$(pwd)/.hugo_cache hugo server --bind 127.0.0.1 --port 1315 --disableFastRender
 ```
 
-Preview with a specific theme:
+Build once:
 
 ```bash
-./use-theme papermod
-hugo server
+hugo
 ```
 
 Deploy:
 
 ```bash
-./deploy "add new post"
+./deploy "your message"
 ```
 
-`deploy` commits the source repo and pushes to `master`. GitHub Actions then builds and publishes the site.
-
-## Writing Posts
+## Content
 
 Posts live in `content/posts/`.
 
-This repo uses the filename convention:
+Filename convention:
 
 ```text
 YYYY-MM-DD-post-title.md
 ```
 
-Example:
+Post URLs are generated from:
 
-```text
-content/posts/2026-04-08-my-new-post.md
+```toml
+[permalinks]
+posts = "/:year/:month/:day/:slug"
 ```
 
-The `./new-post` helper:
+## Theme
 
-- prefixes today’s date
-- slugifies the title
-- runs `hugo new`
+The active theme is:
 
-Generated front matter follows the archetype in `archetypes/default.md`.
+- `themes/tapa/`
 
-Typical post front matter:
+`tapa` is derived from PaperMod and already includes the site-specific behavior that used to live in repo-level overrides.
 
-```md
----
-title: "My New Post"
-date: 2026-04-08T10:00:00-10:00
-draft: false
-hidedate: true
-tags: ["tag1"]
-categories: ["Technique"]
-featured_image:
-description:
----
-```
+Current site-level customizations inside `themes/tapa/` include:
 
-Notes:
+- homepage intro-only front page
+- compact `/posts/` archive with pagination
+- `flows`-style `/thoughts/` page
+- single-post typography and navigation adjustments
+- local font loading for `LXGW WenKai`
+- site accent palette and component-level color mapping
 
-- URLs are generated from `[permalinks]` in `config.toml`
-- post URLs look like `/YYYY/MM/DD/slug/`
-- `date = [":filename", ":default"]` means Hugo can derive the date from the filename
-- this repo has `draft: false` by default in the archetype
+If you want to evolve the look and behavior of the site, start in:
 
-## Local Development
+- `themes/tapa/layouts/`
+- `themes/tapa/assets/`
+- `themes/tapa/theme.toml`
 
-Run the local server:
+Typical theme work areas:
 
-```bash
-hugo server
-```
+- page templates: `themes/tapa/layouts/`
+- partials and shared page fragments: `themes/tapa/layouts/partials/`
+- CSS and visual system: `themes/tapa/assets/css/`
+- local fonts and static assets: `static/assets/`
 
-Useful variants:
+## Change Log
 
-```bash
-hugo
-hugo --gc --minify
-```
-
-Switch themes:
-
-```bash
-./use-theme papermod
-./use-theme mogege
-```
-
-Update PaperMod from upstream:
-
-```bash
-./update-papermod
-```
-
-For a fresh clone with the PaperMod submodule:
-
-```bash
-git submodule update --init --recursive
-```
-
-If Hugo complains about cache permissions in a restricted environment, use:
-
-```bash
-hugo --gc --minify --cacheDir /tmp/hugo_cache_anotherbug
-```
+See [CHANGELOG.md](./CHANGELOG.md) for the recent migration and UI changes.
 
 ## Deployment
 
@@ -154,222 +113,16 @@ Current deployment flow:
 5. The generated `public/` directory is uploaded as the Pages artifact
 6. GitHub Pages deploys the site
 
-Manual deploy command:
-
-```bash
-./deploy "your message"
-```
-
-The script currently does:
-
-```bash
-git add .
-git commit -m "your message"
-git push origin master
-```
-
-There is no second deploy repo anymore. The old `mousepotato.github.io` repo is no longer part of the publish path.
-
 ## Repository Structure
-
-Top-level layout:
 
 ```text
 .
-├── .github/workflows/     # GitHub Actions deploy workflow
-├── archetypes/            # Hugo content templates
-├── content/               # Site content
-├── data/                  # Hugo data files
-├── layouts/               # Site-specific layout overrides
-├── static/                # Static assets copied as-is
-├── themes/mogege-local/   # Rollback theme, vendored into this repo
-├── themes/PaperMod/       # Default theme, tracked as a Git submodule
-├── config.toml            # Active Hugo site configuration
-├── config.theme-*.toml    # Saved theme-specific configs
-├── new-post               # Helper script to create a dated post
-├── use-theme              # Theme switch helper
-├── update-papermod        # Pull latest PaperMod submodule commit
-└── deploy                 # Commit and push helper
+├── .github/workflows/
+├── archetypes/
+├── content/
+├── static/
+├── themes/tapa/
+├── config.toml
+├── new-post
+└── deploy
 ```
-
-Content layout:
-
-- `content/posts/`: blog posts
-- `content/about.md`: about page
-- `content/archives.md`: archives page
-- `content/tools.md`: uses/tools page
-- `content/thoughts.md`: thoughts page
-- `content/main/`: academic/personal site pages and assets
-
-Static assets:
-
-- `static/assets/images/`: images and icons used by the site
-- `static/CNAME`: legacy Pages domain file; kept in the repo, but the GitHub Pages custom domain is now configured in GitHub repository settings
-
-Themes:
-
-- default active theme is `themes/PaperMod`
-- rollback theme is `themes/mogege-local`
-- active config is `config.toml`
-- saved theme configs:
-  - `config.theme-papermod.toml`
-  - `config.theme-mogege.toml`
-- switch themes with `./use-theme papermod` or `./use-theme mogege`
-- `themes/PaperMod` is tracked as a Git submodule so it can be updated from upstream
-- GitHub Actions checks out submodules before building
-
-## Configuration
-
-Main config file:
-
-- `config.toml`
-
-Important settings:
-
-- `baseURL = "https://anotherbug.com"`
-- `theme = "PaperMod"` in the default active config
-- `languageCode = "zh-cn"`
-- `DefaultContentLanguage = "zh-cn"`
-- `paginate = 15`
-- `enableEmoji = true`
-- `enableRobotsTXT = true`
-
-Markup:
-
-- Goldmark raw HTML is enabled
-- this preserves older posts that contain inline raw HTML
-
-Permalinks:
-
-```toml
-[permalinks]
-posts = "/:year/:month/:day/:slug"
-```
-
-This means a file like:
-
-```text
-content/posts/2026-04-08-my-new-post.md
-```
-
-publishes to:
-
-```text
-/2026/04/08/my-new-post/
-```
-
-Menus:
-
-Configured in `config.toml` under `[menu]`:
-
-- Blog
-- Archives
-- Categories
-- Tags
-- Search
-- Thoughts
-- Uses
-- About
-- Academics
-
-Comments:
-
-- the default PaperMod config does not enable comments
-- the saved `mogege-local` config still contains the old Gitalk settings if you switch back
-
-Analytics:
-
-- Google Analytics is configured in `config.toml`
-
-## Theme and Layout Notes
-
-Default theme:
-
-- `themes/PaperMod`
-- tracked as a Git submodule
-- update it with `./update-papermod`
-
-Rollback theme:
-
-- `themes/mogege-local`
-- kept in the repo so you can switch back quickly
-
-If you need to switch back:
-
-```bash
-./use-theme mogege
-```
-
-If you need to return to PaperMod:
-
-```bash
-./use-theme papermod
-```
-- `themes/mogege-local/assets/css/`
-- `themes/mogege-local/assets/js/`
-
-If you need a repo-specific override instead of editing the theme directly, you can add files under the root `layouts/` directory.
-
-## GitHub Pages Configuration
-
-The GitHub repository should be configured as:
-
-- Pages source: `GitHub Actions`
-- Custom domain: `anotherbug.com`
-
-Operational note:
-
-- for this custom workflow, the custom domain is managed in GitHub repository settings
-- `static/CNAME` is not the source of truth for deployment configuration
-
-## Troubleshooting
-
-### New post command fails
-
-Check that Hugo is installed:
-
-```bash
-hugo version
-```
-
-### Local build fails
-
-Try:
-
-```bash
-hugo --gc --minify --cacheDir /tmp/hugo_cache_anotherbug
-```
-
-### Site does not update after push
-
-Check:
-
-1. the push reached `master`
-2. the `Deploy Hugo Site` workflow ran
-3. the build job succeeded
-4. the deploy job succeeded
-
-### Custom domain shows 404
-
-Usually one of:
-
-- GitHub Pages deployment has not completed yet
-- the custom domain is attached to the wrong repo
-- DNS is not pointed correctly
-
-### Git index lock error
-
-If Git reports a stale `.git/index.lock`, make sure no git command is still running before removing it manually.
-
-## Current Publish Contract
-
-The intended current workflow is:
-
-```bash
-./new-post "Post Title"
-# edit content/posts/YYYY-MM-DD-post-title.md
-hugo server
-./deploy "publish post"
-```
-
-That is the whole publish path.

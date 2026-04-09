@@ -9,8 +9,6 @@ featured_image:
 description:
 ---
 
-### 章鱼花园 Vol. 7: If you can't beat them, join them.
-
 #### 科技
 - 一个历史：在2013年5月，Node.js 包管理器 npm 的作者 Isaac Z. Schlueter，宣布 Node.js 已经废弃了CommonJS，原因是 CommonJS 只指定标准而与实现和实际需求脱离，这与 Node.js 的目标相背离。同时也反思了「"Standardizing" before you have implementation is naive, in the most literal sense of showing a lack of experience, wisdom, or judgement.」，同时也指出 Node.js 与其他 SSJS （Server-side JS) platform 之间的竞争与 MSIE and the browser war 的不同，值得一读。[Forget CommonJS. It's dead. We are server side JavaScript.](https://github.com/nodejs/node-v0.x-archive/issues/5132#issuecomment-15432598)
 
@@ -69,10 +67,4 @@ Unless, no unless. 没有例外
 
 ### 订阅章鱼花园
 
-- 微信公众号：追寻与归回
-
-    ![qrcode_for_gh_e9a17734e09c_258.jpg](/assets/images/2021/qrcode_for_gh_e9a17734e09c_258.jpg)
-
-
-- Notion: [章鱼花园期刊](https://www.notion.so/9012ebf6c9f94d699484e087752f54e4)
 - Substack: [https://octg.substack.com](https://octg.substack.com/)

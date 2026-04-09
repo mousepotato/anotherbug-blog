@@ -9,8 +9,6 @@ featured_image:
 description:
 ---
 
-### 章鱼花园 Vol. 19: Abracadabra 说有就有，命立就立
-
 > For He spoke, and it was done; He commanded, and it stood fast. Psalm 33:9 NASB. 因为他说有，就有，命立，就立。诗篇 33:9
 
 #### 科技
@@ -31,10 +29,4 @@ description:
 
 ### 订阅章鱼花园
 
-- 微信公众号：追寻与归回
-
-    ![qrcode_for_gh_e9a17734e09c_258.jpg](/assets/images/2021/qrcode_for_gh_e9a17734e09c_258.jpg)
-
-
-- Notion: [章鱼花园期刊](https://www.notion.so/9012ebf6c9f94d699484e087752f54e4)
 - Substack: [https://octg.substack.com](https://octg.substack.com/)

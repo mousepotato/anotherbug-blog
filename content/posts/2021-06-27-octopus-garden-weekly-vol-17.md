@@ -9,8 +9,6 @@ featured_image:
 description:
 ---
 
-### 章鱼花园 Vol. 17：那些听不见音乐的人，认为那些跳舞的人疯了
-
 #### 科技
 - [How I track my life with Integromat, Airtable, Shortcuts and Timing (et al)](https://talk.automators.fm/t/how-i-track-my-life-with-integromat-airtable-shortcuts-and-timing-et-al/5507) #Life 
 
@@ -27,10 +25,4 @@ description:
 
 ### 订阅章鱼花园
 
-- 微信公众号：追寻与归回
-
-    ![qrcode_for_gh_e9a17734e09c_258.jpg](/assets/images/2021/qrcode_for_gh_e9a17734e09c_258.jpg)
-
-
-- Notion: [章鱼花园期刊](https://www.notion.so/9012ebf6c9f94d699484e087752f54e4)
 - Substack: [https://octg.substack.com](https://octg.substack.com/)

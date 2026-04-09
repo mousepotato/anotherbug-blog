@@ -1,0 +1,474 @@
+{{- $raw := .RawContent -}}
+{{- $entryLines := findRE `(?m)^- .+$` $raw -}}
+{{- $yearMatches := findRE `(?m)^##\s+.+$` $raw -}}
+{{- $scratch := newScratch -}}
+{{- $scratch.Set "entries" (slice) -}}
+{{- $scratch.Set "latestDate" "" -}}
+{{- $scratch.Set "tagCounts" (dict) -}}
+
+{{- range $entryLines }}
+  {{- $line := trim (replaceRE `(?m)^- ` "" .) " " -}}
+  {{- $dateMatches := findRE `(\d{4}-\d{2}-\d{2}|\d{1,2}/\d{1,2}/\d{4})$` $line -}}
+  {{- $dateToken := "" -}}
+  {{- if gt (len $dateMatches) 0 -}}
+    {{- $dateToken = index $dateMatches 0 -}}
+  {{- end -}}
+  {{- $isoDate := $dateToken -}}
+  {{- if and $dateToken (in $dateToken "/") -}}
+    {{- $parts := split $dateToken "/" -}}
+    {{- if eq (len $parts) 3 -}}
+      {{- $isoDate = printf "%s-%02d-%02d" (index $parts 2) (int (index $parts 0)) (int (index $parts 1)) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $bodyWithTags := trim (replaceRE `\s*(\d{4}-\d{2}-\d{2}|\d{1,2}/\d{1,2}/\d{4})$` "" $line) " " -}}
+  {{- $body := trim (replaceRE `\s*#[[:word:]\p{Han}-]+` "" $bodyWithTags) " " -}}
+  {{- $displayDate := "" -}}
+  {{- if $isoDate -}}
+    {{- $displayDate = dateFormat "2006-01-02" $isoDate -}}
+  {{- end -}}
+  {{- $anchor := cond $isoDate (printf "thought-%s" $isoDate) (printf "thought-%d" (len ($scratch.Get "entries"))) -}}
+  {{- $tagMatches := findRE `#[[:word:]\p{Han}-]+` $bodyWithTags -}}
+  {{- $entryTags := slice -}}
+  {{- range $tagMatches }}
+    {{- $tag := replaceRE `^#` "" . -}}
+    {{- $entryTags = $entryTags | append $tag -}}
+    {{- $counts := $scratch.Get "tagCounts" -}}
+    {{- $current := 0 -}}
+    {{- with index $counts $tag }}{{ $current = . }}{{ end -}}
+    {{- $scratch.Set "tagCounts" (merge $counts (dict $tag (add $current 1))) -}}
+  {{- end -}}
+  {{- if and $isoDate (or (eq ($scratch.Get "latestDate") "") (gt $isoDate ($scratch.Get "latestDate"))) -}}
+    {{- $scratch.Set "latestDate" $isoDate -}}
+  {{- end -}}
+  {{- $scratch.Set "entries" (($scratch.Get "entries") | append (dict "body" $body "date" $isoDate "displayDate" $displayDate "anchor" $anchor "tags" $entryTags)) -}}
+{{- end -}}
+
+{{- $entries := sort ($scratch.Get "entries") "date" "desc" -}}
+{{- $count := len $entries -}}
+{{- $latestDate := $scratch.Get "latestDate" -}}
+{{- $calendarMonth := "" -}}
+{{- if $latestDate -}}
+  {{- $calendarMonth = dateFormat "2006-01" $latestDate -}}
+{{- end -}}
+{{- $daysInMonth := 0 -}}
+{{- $monthLabel := "" -}}
+{{- $firstWeekday := 0 -}}
+{{- $latestDay := "" -}}
+{{- if $calendarMonth -}}
+  {{- $monthStart := time.AsTime (printf "%s-01" $calendarMonth) -}}
+  {{- $monthEnd := $monthStart.AddDate 0 1 -1 -}}
+  {{- $monthLabel = dateFormat "January 2006" $monthStart -}}
+  {{- $daysInMonth = int (dateFormat "2" $monthEnd) -}}
+  {{- $firstWeekday = int (dateFormat "0" $monthStart) -}}
+  {{- $latestDay = dateFormat "2" $latestDate -}}
+{{- end -}}
+{{- $dayAnchors := dict -}}
+{{- range $entries }}
+  {{- if and .date (eq (dateFormat "2006-01" .date) $calendarMonth) -}}
+    {{- $dayAnchors = merge $dayAnchors (dict (dateFormat "2" .date) .anchor) -}}
+  {{- end -}}
+{{- end -}}
+{{- $tagCounts := $scratch.Get "tagCounts" -}}
+{{- $monthCounts := dict -}}
+{{- $monthList := slice -}}
+{{- $yearList := slice -}}
+{{- range $entries }}
+  {{- if .date -}}
+    {{- $monthKey := dateFormat "2006-01" .date -}}
+    {{- $monthLabelEntry := dateFormat "January 2006" .date -}}
+    {{- if not (in $monthList $monthKey) -}}
+      {{- $monthList = $monthList | append $monthKey -}}
+    {{- end -}}
+    {{- $currentMonthCount := 0 -}}
+    {{- with index $monthCounts $monthKey }}{{ $currentMonthCount = .count }}{{ end -}}
+    {{- $monthCounts = merge $monthCounts (dict $monthKey (dict "count" (add $currentMonthCount 1) "label" $monthLabelEntry)) -}}
+    {{- $year := dateFormat "2006" .date -}}
+    {{- if not (in $yearList $year) -}}
+      {{- $yearList = $yearList | append $year -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if eq (len $yearList) 0 -}}
+  {{- range $yearMatches }}
+    {{- $year := replaceRE `(?m)^##\s+` "" . -}}
+    {{- if not (in $yearList $year) -}}
+      {{- $yearList = $yearList | append $year -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+<style>
+  .thoughts-flow {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    justify-content: stretch;
+    gap: 2.25rem;
+    align-items: start;
+    width: 100%;
+    max-width: calc(var(--nav-width) + (var(--gap) * 2));
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+
+  .thoughts-flow-main {
+    order: 2;
+    min-width: 0;
+  }
+
+  .thoughts-flow-intro {
+    margin-bottom: 1.1rem;
+  }
+
+  .thoughts-flow-count {
+    margin: 0;
+    color: var(--secondary);
+    font-size: 0.98rem;
+  }
+
+  .thoughts-flow-list {
+    position: relative;
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .thoughts-flow-list::before {
+    content: "";
+    position: absolute;
+    left: 0.71rem;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: color-mix(in srgb, var(--secondary) 25%, transparent);
+  }
+
+  .thoughts-flow-entry {
+    position: relative;
+    margin-left: 0.35rem;
+    padding: 0 0 1.75rem 2.25rem;
+  }
+
+  .thoughts-flow-entry::after {
+    content: "";
+    position: absolute;
+    left: 0.16rem;
+    top: 0.48rem;
+    width: 0.41rem;
+    height: 0.41rem;
+    border-radius: 999px;
+    background: #8b5cf6;
+    box-shadow: 0 0 0 3px color-mix(in srgb, #8b5cf6 16%, transparent);
+  }
+
+  .thoughts-flow-date {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+
+  .thoughts-flow-body {
+    margin: 0;
+    color: var(--content);
+    line-height: 1.85;
+  }
+
+  .thoughts-flow-body > * {
+    margin-bottom: 0;
+  }
+
+  .thoughts-flow-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+  }
+
+  .thoughts-flow-tags a,
+  .thoughts-flow-tags span {
+    color: var(--secondary);
+    font-size: 0.92rem;
+    text-decoration: none;
+  }
+
+  .thoughts-flow-sidebar {
+    order: 1;
+    position: sticky;
+    top: 72px;
+    display: grid;
+    gap: 1.1rem;
+    align-self: start;
+  }
+
+  .thoughts-flow-panel {
+    padding: 0.95rem 1rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--border) 92%, #d8d2ca);
+    border-radius: 24px;
+    background: var(--entry);
+  }
+
+  .thoughts-flow-panel h2 {
+    margin: 0 0 0.9rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .thoughts-flow-calendar-title {
+    margin: 0;
+    color: var(--primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  .thoughts-flow-calendar {
+    padding: 0.2rem 0.15rem 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .thoughts-flow-calendar-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.95rem;
+  }
+
+  .thoughts-flow-calendar-arrow {
+    color: var(--secondary);
+    font-size: 1.25rem;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .thoughts-flow-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.5rem 0.34rem;
+    font-size: 0.82rem;
+  }
+
+  .thoughts-flow-calendar-grid span,
+  .thoughts-flow-calendar-grid a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.45rem;
+    border-radius: 16px;
+    color: #b8b1a9;
+    text-decoration: none;
+    position: relative;
+  }
+
+  .thoughts-flow-calendar-grid .is-weekday {
+    min-height: 1.25rem;
+    color: #8d857d;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .thoughts-flow-calendar-grid .is-empty {
+    background: transparent;
+  }
+
+  .thoughts-flow-calendar-grid .is-date {
+    background: transparent;
+  }
+
+  .thoughts-flow-calendar-grid .is-day {
+    color: #47413b;
+    font-weight: 500;
+  }
+
+  .thoughts-flow-calendar-grid .is-day::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0.18rem;
+    width: 0.26rem;
+    height: 0.26rem;
+    margin-left: -0.13rem;
+    border-radius: 999px;
+    background: var(--accent-teal);
+    box-shadow: none;
+  }
+
+  .thoughts-flow-calendar-grid .is-latest {
+    color: #8f877f;
+    border: 1.5px solid var(--accent-teal);
+  }
+
+  .thoughts-flow-browse {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .thoughts-flow-browse a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .thoughts-flow-browse-label {
+    min-width: 0;
+  }
+
+  .thoughts-flow-browse-count {
+    color: var(--secondary);
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .thoughts-flow-tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .thoughts-flow-tag-cloud a {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    line-height: 1.4;
+    background: var(--tertiary);
+    border-radius: 6px;
+  }
+
+  .thoughts-flow-tag-cloud a:hover {
+    color: var(--primary);
+  }
+
+  .thoughts-flow-panel-divider {
+    margin: 1rem 0 0.9rem;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .thoughts-flow-empty {
+    margin: 0;
+    color: var(--secondary);
+    font-size: 0.92rem;
+  }
+
+  @media (max-width: 960px) {
+    .thoughts-flow {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      width: 100%;
+    }
+
+    .thoughts-flow-main,
+    .thoughts-flow-sidebar {
+      order: initial;
+      position: static;
+    }
+  }
+
+</style>
+
+<article class="post-single thoughts-flow">
+  <section class="thoughts-flow-main">
+    <header class="thoughts-flow-intro">
+      <p class="thoughts-flow-count">共 {{ $count }} 条随想。</p>
+    </header>
+
+    <div class="thoughts-flow-list">
+      {{- $state := newScratch -}}
+      {{- $state.Set "month" "" -}}
+      {{- range $entries }}
+      {{- $entryMonth := "" -}}
+      {{- if .date }}{{ $entryMonth = dateFormat "2006-01" .date }}{{ end -}}
+      {{- if and $entryMonth (ne $entryMonth ($state.Get "month")) }}
+      <span id="thought-{{ $entryMonth }}-01"></span>
+      {{- $state.Set "month" $entryMonth -}}
+      {{- end }}
+      <article class="thoughts-flow-entry" id="{{ .anchor }}">
+        {{- if .displayDate }}
+        <a class="thoughts-flow-date" href="#{{ .anchor }}">{{ .displayDate }}</a>
+        {{- end }}
+        <div class="thoughts-flow-body">{{ .body | markdownify }}</div>
+        {{- if gt (len .tags) 0 }}
+        <div class="thoughts-flow-tags">
+          {{- range .tags }}
+          <a href="/tags/{{ . | urlize }}/"># {{ . }}</a>
+          {{- end }}
+        </div>
+        {{- end }}
+      </article>
+      {{- end }}
+    </div>
+  </section>
+
+  <aside class="thoughts-flow-sidebar">
+    <section class="thoughts-flow-panel">
+      {{- if $calendarMonth }}
+      <div class="thoughts-flow-calendar">
+        <div class="thoughts-flow-calendar-head">
+          <span class="thoughts-flow-calendar-arrow" aria-hidden="true">‹</span>
+          <p class="thoughts-flow-calendar-title">{{ $monthLabel }}</p>
+          <span class="thoughts-flow-calendar-arrow" aria-hidden="true">›</span>
+        </div>
+        <div class="thoughts-flow-calendar-grid">
+        <span class="is-weekday">Su</span>
+        <span class="is-weekday">Mo</span>
+        <span class="is-weekday">Tu</span>
+        <span class="is-weekday">We</span>
+        <span class="is-weekday">Th</span>
+        <span class="is-weekday">Fr</span>
+        <span class="is-weekday">Sa</span>
+        {{- range seq $firstWeekday }}
+        <span class="is-empty"></span>
+        {{- end }}
+        {{- range seq $daysInMonth }}
+          {{- $day := printf "%d" . -}}
+          {{- with index $dayAnchors $day }}
+          <a class="is-day{{ if eq $day $latestDay }} is-latest{{ end }}" href="#{{ . }}">{{ $day }}</a>
+          {{- else }}
+          <span class="is-date{{ if eq $day $latestDay }} is-latest{{ end }}">{{ $day }}</span>
+          {{- end }}
+        {{- end }}
+        </div>
+      </div>
+      {{- end }}
+      <div class="thoughts-flow-panel-divider"></div>
+      <h2>浏览</h2>
+      <div class="thoughts-flow-browse">
+        {{- range $monthList }}
+        {{- $monthMeta := index $monthCounts . -}}
+        {{- $monthAnchor := printf "thought-%s-01" . -}}
+        <a href="#{{ $monthAnchor }}">
+          <span class="thoughts-flow-browse-label">{{ $monthMeta.label }}</span>
+          <span class="thoughts-flow-browse-count">{{ $monthMeta.count }}</span>
+        </a>
+        {{- end }}
+      </div>
+    </section>
+
+    <section class="thoughts-flow-panel">
+      <h2>标签</h2>
+      {{- if gt (len $tagCounts) 0 }}
+      <div class="thoughts-flow-tag-cloud">
+        {{- range $tag, $count := $tagCounts }}
+        <a href="/tags/{{ $tag | urlize }}/">{{ $tag }} <sup>{{ $count }}</sup></a>
+        {{- end }}
+      </div>
+      {{- else }}
+      <p class="thoughts-flow-empty">还没有标签。</p>
+      {{- end }}
+    </section>
+  </aside>
+</article>

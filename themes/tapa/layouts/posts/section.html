@@ -1,0 +1,142 @@
+{{- define "main" }}
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections -}}
+{{- $paginator := .Paginate $pages -}}
+<header class="page-header">
+  {{- if .Description }}
+  <div class="post-description">
+    {{ .Description | markdownify }}
+  </div>
+  {{- end }}
+</header>
+
+{{- if .Content }}
+<div class="post-content">
+  {{- if not (.Param "disableAnchoredHeadings") }}
+  {{- partial "anchored_headings.html" .Content -}}
+  {{- else }}{{ .Content }}{{ end }}
+</div>
+{{- end }}
+
+<style>
+  .posts-minimal-page {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - var(--header-height) - var(--footer-height) - (var(--gap) * 2));
+  }
+
+  .posts-minimal {
+    flex: 1;
+    margin-top: 1.25rem;
+  }
+
+  .posts-minimal-year {
+    margin: 0 0 1.1rem;
+  }
+
+  .posts-minimal-year:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .posts-minimal-year-title {
+    margin: 0 0 0.35rem;
+    color: var(--secondary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .posts-minimal-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .posts-minimal-item {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .posts-minimal-link {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 0.75rem;
+    align-items: baseline;
+    padding: 0.34rem 0;
+    color: var(--accent-purple);
+    text-decoration: none;
+    line-height: 1.25;
+  }
+
+  .posts-minimal-link:hover .posts-minimal-title {
+    color: var(--accent-purple);
+    text-decoration: underline;
+    text-decoration-color: var(--accent-purple);
+    text-underline-offset: 0.18em;
+  }
+
+  .posts-minimal-date {
+    color: var(--secondary);
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .posts-minimal-title {
+    min-width: 0;
+    font-size: 0.92rem;
+    color: var(--accent-purple);
+  }
+
+  @media (max-width: 640px) {
+    .posts-minimal-link {
+      grid-template-columns: 1fr;
+      gap: 0.08rem;
+      padding: 0.45rem 0;
+    }
+  }
+</style>
+
+<section class="posts-minimal-page">
+  <div class="posts-minimal">
+    {{- range $paginator.Pages.GroupByDate "2006" }}
+    <section class="posts-minimal-year">
+      <h2 class="posts-minimal-year-title">{{ .Key }}</h2>
+      <ol class="posts-minimal-list">
+        {{- range .Pages }}
+        <li class="posts-minimal-item">
+          <a class="posts-minimal-link" href="{{ .Permalink }}">
+            <time class="posts-minimal-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+            <span class="posts-minimal-title">{{ .Title }}</span>
+          </a>
+        </li>
+        {{- end }}
+      </ol>
+    </section>
+    {{- end }}
+  </div>
+
+  {{- if gt $paginator.TotalPages 1 }}
+  <footer class="page-footer">
+    <nav class="pagination">
+      {{- if $paginator.HasPrev }}
+      <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">
+        ‹&nbsp;{{ i18n "prev_page" }}&nbsp;
+        {{- if (.Param "ShowPageNums") }}
+        {{- sub $paginator.PageNumber 1 }}/{{ $paginator.TotalPages }}
+        {{- end }}
+      </a>
+      {{- end }}
+      {{- if $paginator.HasNext }}
+      <a class="next" href="{{ $paginator.Next.URL | absURL }}">
+        {{- i18n "next_page" }}&nbsp;
+        {{- if (.Param "ShowPageNums") }}
+        {{- add 1 $paginator.PageNumber }}/{{ $paginator.TotalPages }}
+        {{- end }}&nbsp;›
+      </a>
+      {{- end }}
+    </nav>
+  </footer>
+  {{- end }}
+</section>
+{{- end }}
