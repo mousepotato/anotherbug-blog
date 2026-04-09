@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [ "$#" -lt 1 ]; then
+  echo "Usage: ./new-post <post title>"
+  exit 1
+fi
+
+title="$*"
+date_prefix="$(date +%F)"
+slug="$(printf '%s' "$title" \
+  | tr '[:upper:]' '[:lower:]' \
+  | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//')"
+
+if [ -z "$slug" ]; then
+  echo "Error: title must contain letters or numbers."
+  exit 1
+fi
+
+path="content/posts/${date_prefix}-${slug}.md"
+
+hugo new "$path"
+echo "Created ${path}"
