@@ -3,11 +3,16 @@ title = "鼠标土豆"
 languageCode = "zh-cn"
 DefaultContentLanguage = "zh-cn"
 hasCJKLanguage = true 
-theme = "mogege" 
+theme = "mogege-local"
 
 paginate = 15 # 每页的文章数
 enableEmoji = true # 支持 Emoji
 enableRobotsTXT = true # 支持 robots.txt
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
 
 [frontmatter]
 date = [":filename", ":default"]
