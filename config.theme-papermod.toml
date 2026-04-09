@@ -98,7 +98,7 @@ posts = "/:year/:month/:day/:slug"
     text = "鼠标土豆"
 
   [params.homeInfoParams]
-    Title = "鼠标土豆"
+    Title = ""
     Content = "「人生最好的境界是丰富的安静」 — 周国平"
 
   [[params.socialIcons]]
