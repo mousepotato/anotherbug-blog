@@ -53,7 +53,7 @@
 				<div class="post-tags">
         		{{ range . }}
         			<span class="tag"><a href="{{ "tags/" | absURL }}{{ . | urlize }}/">
-               	 #{{.}}</a></span>
+               	 #{{ printf "%s%s" (upper (substr . 0 1)) (substr . 1) }}</a></span>
         		{{ end }}
 				</div>
 				{{ end }}
