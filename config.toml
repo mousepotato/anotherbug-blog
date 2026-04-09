@@ -91,9 +91,9 @@ posts = "/:year/:month/:day/:slug"
     url = "/index.xml"
 
   [params.assets]
-    favicon = "/assets/images/favicon.ico"
-    favicon16x16 = "/assets/images/favicon.ico"
-    favicon32x32 = "/assets/images/favicon.ico"
+    favicon = "/assets/images/favicon.svg"
+    favicon16x16 = "/assets/images/favicon.svg"
+    favicon32x32 = "/assets/images/favicon.svg"
     apple_touch_icon = "/assets/images/favicon.ico"
 
 [services]

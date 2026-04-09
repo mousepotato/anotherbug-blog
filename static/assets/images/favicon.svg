@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Potato favicon">
+  <defs>
+    <linearGradient id="potatoBody" x1="20" y1="12" x2="44" y2="54" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#efbf7b"/>
+      <stop offset="0.55" stop-color="#d99f5c"/>
+      <stop offset="1" stop-color="#b7773e"/>
+    </linearGradient>
+    <linearGradient id="potatoShade" x1="18" y1="16" x2="46" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6d59f" stop-opacity="0.9"/>
+      <stop offset="0.45" stop-color="#f6d59f" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#8c562b" stop-opacity="0.32"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#fffaf2"/>
+  <path d="M24 10c6-2 13-1 18 3 6 5 9 13 8 22-1 10-6 19-14 23-7 3-16 2-22-4-6-6-8-14-7-23 1-8 5-16 11-19 2-1 4-2 6-2z" fill="url(#potatoBody)"/>
+  <path d="M26 14c5-2 10-1 15 2 6 4 8 11 7 19-1 8-5 16-11 19-6 3-13 2-18-3-5-5-7-12-6-19 1-7 4-13 9-16 1-1 3-2 4-2z" fill="url(#potatoShade)"/>
+  <path d="M25 16c4-2 9-2 13 0 2 1 3 2 5 4-3-1-6-2-10-1-4 0-8 2-11 5 0-4 1-6 3-8z" fill="#fff3db" fill-opacity="0.55"/>
+  <circle cx="27" cy="24" r="2" fill="#9a6638"/>
+  <circle cx="39" cy="20" r="1.7" fill="#9a6638"/>
+  <circle cx="41" cy="34" r="2.2" fill="#9a6638"/>
+  <circle cx="31" cy="44" r="1.8" fill="#9a6638"/>
+  <circle cx="24" cy="35" r="1.5" fill="#9a6638"/>
+</svg>
