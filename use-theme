@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ $# -ne 1 ]]; then
+  echo "usage: $0 papermod|mogege" >&2
+  exit 1
+fi
+
+case "$1" in
+  papermod)
+    cp config.theme-papermod.toml config.toml
+    ;;
+  mogege)
+    cp config.theme-mogege.toml config.toml
+    ;;
+  *)
+    echo "unknown theme: $1" >&2
+    exit 1
+    ;;
+esac
+
+echo "Activated theme: $1"

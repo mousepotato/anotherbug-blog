@@ -4,6 +4,11 @@ Source repo for `https://anotherbug.com`.
 
 This is a Hugo-based blog. Content lives in this repository, and GitHub Actions builds and publishes the site to GitHub Pages.
 
+The repo supports two theme configs:
+
+- `PaperMod` as the default active theme
+- `mogege-local` as a rollback option
+
 ## Requirements
 
 - Hugo extended `0.160.1` or compatible
@@ -28,6 +33,13 @@ Edit the generated file under `content/posts/`.
 Preview locally:
 
 ```bash
+hugo server
+```
+
+Preview with a specific theme:
+
+```bash
+./use-theme papermod
 hugo server
 ```
 
@@ -100,6 +112,25 @@ hugo
 hugo --gc --minify
 ```
 
+Switch themes:
+
+```bash
+./use-theme papermod
+./use-theme mogege
+```
+
+Update PaperMod from upstream:
+
+```bash
+./update-papermod
+```
+
+For a fresh clone with the PaperMod submodule:
+
+```bash
+git submodule update --init --recursive
+```
+
 If Hugo complains about cache permissions in a restricted environment, use:
 
 ```bash
@@ -151,9 +182,13 @@ Top-level layout:
 ├── data/                  # Hugo data files
 ├── layouts/               # Site-specific layout overrides
 ├── static/                # Static assets copied as-is
-├── themes/mogege-local/   # Active theme, vendored into this repo
-├── config.toml            # Hugo site configuration
+├── themes/mogege-local/   # Rollback theme, vendored into this repo
+├── themes/PaperMod/       # Default theme, tracked as a Git submodule
+├── config.toml            # Active Hugo site configuration
+├── config.theme-*.toml    # Saved theme-specific configs
 ├── new-post               # Helper script to create a dated post
+├── use-theme              # Theme switch helper
+├── update-papermod        # Pull latest PaperMod submodule commit
 └── deploy                 # Commit and push helper
 ```
 
@@ -171,11 +206,17 @@ Static assets:
 - `static/assets/images/`: images and icons used by the site
 - `static/CNAME`: legacy Pages domain file; kept in the repo, but the GitHub Pages custom domain is now configured in GitHub repository settings
 
-Theme:
+Themes:
 
-- active theme is `themes/mogege-local`
-- configured in `config.toml` with `theme = "mogege-local"`
-- this theme was vendored into the repo so GitHub Actions can build without a submodule dependency
+- default active theme is `themes/PaperMod`
+- rollback theme is `themes/mogege-local`
+- active config is `config.toml`
+- saved theme configs:
+  - `config.theme-papermod.toml`
+  - `config.theme-mogege.toml`
+- switch themes with `./use-theme papermod` or `./use-theme mogege`
+- `themes/PaperMod` is tracked as a Git submodule so it can be updated from upstream
+- GitHub Actions checks out submodules before building
 
 ## Configuration
 
@@ -186,7 +227,7 @@ Main config file:
 Important settings:
 
 - `baseURL = "https://anotherbug.com"`
-- `theme = "mogege-local"`
+- `theme = "PaperMod"` in the default active config
 - `languageCode = "zh-cn"`
 - `DefaultContentLanguage = "zh-cn"`
 - `paginate = 15`
@@ -222,8 +263,10 @@ Menus:
 Configured in `config.toml` under `[menu]`:
 
 - Blog
+- Archives
 - Categories
 - Tags
+- Search
 - Thoughts
 - Uses
 - About
@@ -231,8 +274,8 @@ Configured in `config.toml` under `[menu]`:
 
 Comments:
 
-- Gitalk is enabled in `[params.gitalk]`
-- comment issues are stored in `mousepotato.github.io`
+- the default PaperMod config does not enable comments
+- the saved `mogege-local` config still contains the old Gitalk settings if you switch back
 
 Analytics:
 
@@ -240,19 +283,28 @@ Analytics:
 
 ## Theme and Layout Notes
 
-The repo uses a vendored theme:
+Default theme:
+
+- `themes/PaperMod`
+- tracked as a Git submodule
+- update it with `./update-papermod`
+
+Rollback theme:
 
 - `themes/mogege-local`
+- kept in the repo so you can switch back quickly
 
-That theme contains:
+If you need to switch back:
 
-- `layouts/`: templates
-- `assets/css/`: SCSS
-- `assets/js/`: JavaScript
+```bash
+./use-theme mogege
+```
 
-If you need to change how the site looks, start in:
+If you need to return to PaperMod:
 
-- `themes/mogege-local/layouts/`
+```bash
+./use-theme papermod
+```
 - `themes/mogege-local/assets/css/`
 - `themes/mogege-local/assets/js/`
 
