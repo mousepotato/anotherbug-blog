@@ -1,4 +1,4 @@
-# anotherbug-blog-hugo
+# anotherbug-blog
 
 Source repo for `https://anotherbug.com`.
 
