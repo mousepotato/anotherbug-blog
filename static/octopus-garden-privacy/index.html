@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Octopus Garden - Privacy Policy</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.7;
+      color: #1f2937;
+      background: #faf5ff;
+      padding: 2rem 1rem;
+    }
+    .container { max-width: 720px; margin: 0 auto; }
+    header {
+      background: linear-gradient(135deg, #6b21a8, #7c3aed);
+      color: white;
+      padding: 2.5rem 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+    header h1 { font-size: 1.8rem; font-weight: 700; }
+    header p { margin-top: 0.5rem; opacity: 0.85; font-size: 0.95rem; }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #6b21a8;
+      margin-bottom: 0.75rem;
+    }
+    p { color: #374151; font-size: 0.95rem; margin-bottom: 0.5rem; }
+    p:last-child { margin-bottom: 0; }
+    .badge {
+      display: inline-block;
+      background: #ede9fe;
+      color: #5b21b6;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 99px;
+      margin-bottom: 0.75rem;
+    }
+    a { color: #7c3aed; }
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Octopus Garden</h1>
+      <p>Privacy Policy &mdash; Last updated March 30, 2026</p>
+    </header>
+
+    <div class="card">
+      <span class="badge">Core Principle</span>
+      <h2>Your Data Stays Yours</h2>
+      <p>Octopus Garden stores your journal entries in your own private GitHub repository or locally on your device. We operate zero servers that hold your personal data.</p>
+    </div>
+
+    <div class="card">
+      <h2>GitHub Authentication</h2>
+      <p>Sign-in uses OAuth via a Cloudflare Worker auth proxy. No data is logged during this process. The auth proxy exists solely to keep the OAuth client secret off your device.</p>
+    </div>
+
+    <div class="card">
+      <h2>GitHub App Permissions</h2>
+      <p>The app requests only two permissions: <strong>Contents</strong> (read/write, for your journal repo) and <strong>Metadata</strong> (read-only, required by GitHub). Nothing else.</p>
+    </div>
+
+    <div class="card">
+      <h2>Location Data</h2>
+      <p>Location access is optional. If granted, your coordinates are sent only to the Open-Meteo API to fetch local weather. They are never stored or tracked by us.</p>
+    </div>
+
+    <div class="card">
+      <h2>Media Library</h2>
+      <p>Media library access is write-only and used exclusively to save AI-generated images you choose to keep. We never read or index your photo library.</p>
+    </div>
+
+    <div class="card">
+      <span class="badge">Zero tracking</span>
+      <h2>Analytics &amp; Advertising</h2>
+      <p>There are no analytics SDKs, no crash reporters, no ad networks, and no third-party tracking of any kind in Octopus Garden.</p>
+    </div>
+
+    <div class="card">
+      <h2>Third-Party Services</h2>
+      <p><strong>GitHub API</strong> — stores your journal data per GitHub's own privacy policy.</p>
+      <p><strong>Open-Meteo</strong> — receives coordinates for weather lookups only; no tracking.</p>
+      <p><strong>Cloudflare Workers</strong> — handles the OAuth flow; no personal data is retained.</p>
+    </div>
+
+    <div class="card">
+      <h2>Data Retention</h2>
+      <p>We retain zero data server-side. Deleting the GitHub App authorization or your journal repository permanently removes all data. You are in full control.</p>
+    </div>
+
+    <div class="card">
+      <h2>Children's Privacy</h2>
+      <p>Octopus Garden is not directed at children under 13. We do not knowingly collect any information from children under 13.</p>
+    </div>
+
+    <div class="card">
+      <h2>Contact</h2>
+      <p>Questions? Reach us at <a href="mailto:octopusgardenapp@gmail.com">octopusgardenapp@gmail.com</a></p>
+    </div>
+
+    <footer>
+      <p>&copy; 2026 Octopus Garden. All rights reserved.</p>
+    </footer>
+  </div>
+</body>
+</html>
