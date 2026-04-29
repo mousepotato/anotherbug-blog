@@ -96,6 +96,9 @@ posts = "/:year/:month/:day/:slug"
     favicon32x32 = "/assets/images/favicon.svg"
     apple_touch_icon = "/assets/images/favicon.ico"
 
+  [params.analytics]
+    academicGoogleAnalyticsID = "G-WENJWHP3ZL"
+
 [services]
   [services.googleAnalytics]
-    ID = "UA-11501178-2"
+    ID = "G-YWXEHB24LZ"
