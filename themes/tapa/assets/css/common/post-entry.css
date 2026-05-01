@@ -55,6 +55,15 @@
     margin-top: 0.1rem;
 }
 
+.home-sections {
+    max-width: 42rem;
+    margin: 0 0 calc(var(--gap) * 1.75) 0;
+}
+
+.home-sections h2:first-child {
+    margin-top: 0;
+}
+
 .home-info .social-icons {
     display: flex;
     flex-wrap: wrap;

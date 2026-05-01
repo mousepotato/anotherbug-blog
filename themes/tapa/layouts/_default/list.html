@@ -30,7 +30,7 @@
 </header>
 {{- end }}
 
-{{- if .Content }}
+{{- if and (not .IsHome) .Content }}
 <div class="post-content">
   {{- if not (.Param "disableAnchoredHeadings") }}
   {{- partial "anchored_headings.html" .Content -}}
@@ -41,6 +41,13 @@
 {{- if .IsHome }}
 {{- if site.Params.homeInfoParams }}
 {{- partial "home_info.html" . }}
+{{- end }}
+{{- if .Content }}
+<div class="post-content home-sections">
+  {{- if not (.Param "disableAnchoredHeadings") }}
+  {{- partial "anchored_headings.html" .Content -}}
+  {{- else }}{{ .Content }}{{ end }}
+</div>
 {{- end }}
 {{- else }}
 {{- $pages := union .RegularPages .Sections }}
