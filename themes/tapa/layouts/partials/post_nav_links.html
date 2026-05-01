@@ -1,15 +1,26 @@
 {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
 {{- if and (gt (len $pages) 1) (in $pages . ) }}
-<nav class="paginav">
-  {{- with $pages.Next . }}
-  <a class="prev" href="{{ .Permalink }}">
-    <span class="title"><- {{ i18n "prev_page" }}</span>
+{{- $isZh := or (eq site.Language.Lang "zh-cn") (eq site.Language.Lang "zh") (hasPrefix site.Language.Lang "zh") }}
+{{- $prevLabel := cond $isZh "上一篇" (or (i18n "prev_page") "Previous") }}
+{{- $nextLabel := cond $isZh "下一篇" (or (i18n "next_page") "Next") }}
+{{- $prevPage := $pages.Next . }}
+{{- $nextPage := $pages.Prev . }}
+<nav class="paginav{{ if or (and $prevPage (not $nextPage)) (and $nextPage (not $prevPage)) }} paginav-single{{ end }}">
+  {{- with $prevPage }}
+  <a class="prev" href="{{ .RelPermalink }}">
+    <span class="paginav-topline">
+      <span class="title">{{ $prevLabel }}</span>
+      <span class="arrow" aria-hidden="true">←</span>
+    </span>
     <span class="label">{{- .Name -}}</span>
   </a>
   {{- end }}
-  {{- with $pages.Prev . }}
-  <a class="next" href="{{ .Permalink }}">
-    <span class="title">{{ i18n "next_page" }} -></span>
+  {{- with $nextPage }}
+  <a class="next" href="{{ .RelPermalink }}">
+    <span class="paginav-topline">
+      <span class="title">{{ $nextLabel }}</span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </span>
     <span class="label">{{- .Name -}}</span>
   </a>
   {{- end }}

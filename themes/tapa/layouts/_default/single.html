@@ -1,9 +1,13 @@
 {{- define "main" }}
 
-<article class="post-single">
-  <header class="post-header">
+{{- $productURL := .Param "product_url" }}
+<article class="post-single{{ if $productURL }} post-single-product{{ end }}">
+  <header class="post-header{{ if $productURL }} post-header-product{{ end }}">
     {{- $isPost := eq .Type "posts" }}
     {{- if $isPost }}
+    {{- with .Param "product_kind" }}
+    <p class="post-kicker">{{ . }}</p>
+    {{- end }}
     <h1 class="post-title entry-hint-parent">
       {{ .Title }}
       {{- if .Draft }}
@@ -20,7 +24,18 @@
       {{ .Description }}
     </div>
     {{- end }}
-    {{- if not (.Param "hideMeta") }}
+    {{- if $productURL }}
+    <div class="product-hero-actions">
+      <a class="product-link product-link-primary" href="{{ $productURL }}" target="_blank" rel="noopener noreferrer">{{ .Param "product_cta_label" | default "访问官网" }}</a>
+      <a class="product-link product-link-secondary" href="{{ "/tags/products/" | relURL }}">全部产品</a>
+    </div>
+    <div class="post-meta product-post-meta">
+      <span>更新于 {{ .Date.Format "2006-01-02" }}</span>
+      {{- with .Param "product_platform" }}
+      <span>· {{ . }}</span>
+      {{- end }}
+    </div>
+    {{- else if not (.Param "hideMeta") }}
     <div class="post-meta">
       {{- partial "post_meta.html" . -}}
       {{- partial "translation_list.html" . -}}
@@ -48,7 +63,7 @@
     {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
     <ul class="post-tags">
       {{- range ($.GetTerms $tags) }}
-      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+      <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
       {{- end }}
     </ul>
     {{- if (.Param "ShowPostNavLinks") }}

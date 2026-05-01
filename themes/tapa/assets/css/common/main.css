@@ -6,6 +6,11 @@
     padding: var(--gap);
 }
 
+.main-thoughts {
+    max-width: 1400px;
+    padding-inline: clamp(18px, 3vw, 36px);
+}
+
 .page-header h1 {
     font-size: 40px;
 }

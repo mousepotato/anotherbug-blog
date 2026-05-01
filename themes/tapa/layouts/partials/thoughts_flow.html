@@ -100,12 +100,12 @@
 <style>
   .thoughts-flow {
     display: grid;
-    grid-template-columns: 280px minmax(0, 1fr);
+    grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
     justify-content: stretch;
-    gap: 2.25rem;
+    gap: clamp(2rem, 4vw, 4rem);
     align-items: start;
     width: 100%;
-    max-width: calc(var(--nav-width) + (var(--gap) * 2));
+    max-width: none;
     box-sizing: border-box;
     margin: 0 auto;
   }
@@ -113,22 +113,24 @@
   .thoughts-flow-main {
     order: 2;
     min-width: 0;
+    max-width: min(100%, 82ch);
   }
 
   .thoughts-flow-intro {
-    margin-bottom: 1.1rem;
+    margin-bottom: 1.35rem;
   }
 
   .thoughts-flow-count {
     margin: 0;
     color: var(--secondary);
-    font-size: 0.98rem;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
   }
 
   .thoughts-flow-list {
     position: relative;
     display: grid;
-    gap: 0.25rem;
+    gap: 0.4rem;
   }
 
   .thoughts-flow-list::before {
@@ -144,7 +146,7 @@
   .thoughts-flow-entry {
     position: relative;
     margin-left: 0.35rem;
-    padding: 0 0 1.75rem 2.25rem;
+    padding: 0 0 2.3rem 2.5rem;
   }
 
   .thoughts-flow-entry::after {
@@ -161,16 +163,18 @@
 
   .thoughts-flow-date {
     display: inline-block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.7rem;
     color: var(--primary);
-    font-size: 0.95rem;
+    font-size: 1rem;
+    font-weight: 600;
     text-decoration: none;
   }
 
   .thoughts-flow-body {
     margin: 0;
     color: var(--content);
-    line-height: 1.85;
+    font-size: 1.02rem;
+    line-height: 1.95;
   }
 
   .thoughts-flow-body > * {
@@ -187,29 +191,33 @@
   .thoughts-flow-tags a,
   .thoughts-flow-tags span {
     color: var(--secondary);
-    font-size: 0.92rem;
+    font-size: 0.9rem;
+    padding: 0.14rem 0.56rem;
+    background: color-mix(in srgb, var(--tertiary) 72%, transparent);
+    border-radius: 999px;
     text-decoration: none;
   }
 
   .thoughts-flow-sidebar {
     order: 1;
     position: sticky;
-    top: 72px;
+    top: 84px;
     display: grid;
-    gap: 1.1rem;
+    gap: 0.9rem;
     align-self: start;
   }
 
   .thoughts-flow-panel {
-    padding: 0.95rem 1rem 1rem;
+    padding: 0.75rem 0.8rem 0.8rem;
     border: 1px solid color-mix(in srgb, var(--border) 92%, #d8d2ca);
-    border-radius: 24px;
+    border-radius: 20px;
     background: var(--entry);
+    box-shadow: 0 16px 36px color-mix(in srgb, var(--accent-purple) 6%, transparent);
   }
 
   .thoughts-flow-panel h2 {
-    margin: 0 0 0.9rem;
-    font-size: 0.88rem;
+    margin: 0 0 0.62rem;
+    font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -218,13 +226,13 @@
   .thoughts-flow-calendar-title {
     margin: 0;
     color: var(--primary);
-    font-size: 0.9rem;
+    font-size: 0.76rem;
     font-weight: 500;
     letter-spacing: 0;
   }
 
   .thoughts-flow-calendar {
-    padding: 0.2rem 0.15rem 0;
+    padding: 0;
     border: 0;
     border-radius: 0;
     background: transparent;
@@ -235,12 +243,12 @@
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
-    margin-bottom: 0.95rem;
+    margin-bottom: 0.45rem;
   }
 
   .thoughts-flow-calendar-arrow {
     color: var(--secondary);
-    font-size: 1.25rem;
+    font-size: 0.9rem;
     line-height: 1;
     user-select: none;
   }
@@ -248,8 +256,8 @@
   .thoughts-flow-calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: 0.5rem 0.34rem;
-    font-size: 0.82rem;
+    gap: 0.14rem 0.12rem;
+    font-size: 0.7rem;
   }
 
   .thoughts-flow-calendar-grid span,
@@ -257,17 +265,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 2.45rem;
-    border-radius: 16px;
+    min-height: 1.55rem;
+    border-radius: 11px;
     color: #b8b1a9;
     text-decoration: none;
     position: relative;
   }
 
   .thoughts-flow-calendar-grid .is-weekday {
-    min-height: 1.25rem;
+    min-height: 0.75rem;
     color: #8d857d;
-    font-size: 0.6rem;
+    font-size: 0.5rem;
     font-weight: 500;
     letter-spacing: 0;
     text-transform: none;
@@ -290,10 +298,10 @@
     content: "";
     position: absolute;
     left: 50%;
-    bottom: 0.18rem;
-    width: 0.26rem;
-    height: 0.26rem;
-    margin-left: -0.13rem;
+    bottom: 0.09rem;
+    width: 0.16rem;
+    height: 0.16rem;
+    margin-left: -0.08rem;
     border-radius: 999px;
     background: var(--accent-teal);
     box-shadow: none;
@@ -301,7 +309,7 @@
 
   .thoughts-flow-calendar-grid .is-latest {
     color: #8f877f;
-    border: 1.5px solid var(--accent-teal);
+    border: 1px solid var(--accent-teal);
   }
 
   .thoughts-flow-browse {
@@ -317,6 +325,7 @@
     gap: 0.75rem;
     color: var(--primary);
     text-decoration: none;
+    padding: 0.08rem 0;
   }
 
   .thoughts-flow-browse-label {
@@ -338,14 +347,14 @@
 
   .thoughts-flow-tag-cloud a {
     display: inline-block;
-    padding: 0.2rem 0.65rem;
+    padding: 0.24rem 0.72rem;
     color: var(--primary);
     text-decoration: none;
     font-size: 0.92rem;
     font-weight: 500;
     line-height: 1.4;
     background: var(--tertiary);
-    border-radius: 6px;
+    border-radius: 999px;
   }
 
   .thoughts-flow-tag-cloud a:hover {
@@ -353,7 +362,7 @@
   }
 
   .thoughts-flow-panel-divider {
-    margin: 1rem 0 0.9rem;
+    margin: 0.8rem 0 0.72rem;
     height: 1px;
     background: var(--border);
   }
@@ -362,6 +371,17 @@
     margin: 0;
     color: var(--secondary);
     font-size: 0.92rem;
+  }
+
+  @media (max-width: 1120px) {
+    .thoughts-flow {
+      grid-template-columns: minmax(240px, 272px) minmax(0, 1fr);
+      gap: 1.7rem;
+    }
+
+    .thoughts-flow-main {
+      max-width: min(100%, 74ch);
+    }
   }
 
   @media (max-width: 960px) {

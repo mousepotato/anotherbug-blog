@@ -6,7 +6,7 @@
 }
 
 .post-title {
-    margin-bottom: 2px;
+    margin-bottom: 0;
     font-size: clamp(0.92rem, 1.2vw, 1.05rem);
     line-height: 1.45;
     font-weight: 500;
@@ -54,6 +54,57 @@
     margin: 30px 0;
     font-size: 0.98rem;
     line-height: 1.8;
+}
+
+.post-kicker {
+    margin: 0 0 0.85rem;
+    color: var(--accent-warm);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.post-header-product {
+    padding-bottom: 1.15rem;
+}
+
+.post-single-product .post-title {
+    font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+    line-height: 1.06;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.post-single-product .post-description {
+    max-width: 38rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+    color: var(--content);
+    font-size: 1rem;
+    line-height: 1.82;
+}
+
+.product-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.product-post-meta {
+    margin-top: 0.95rem;
+    font-size: 0.84rem;
+    color: var(--secondary);
+}
+
+.post-single-product .post-content {
+    max-width: 46rem;
+    margin-top: 2rem;
+}
+
+.post-single-product .post-content p:first-child {
+    font-size: 1.05rem;
 }
 
 .post-content h3,
@@ -402,52 +453,79 @@ h6:hover .anchor {
 }
 
 .paginav {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.85rem;
 }
 
 .paginav a {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
-    min-height: 100%;
-    padding: 0.9rem 1rem;
-    border-radius: 14px;
-    border: 1px solid color-mix(in srgb, var(--accent-warm) 16%, var(--border));
-    background: color-mix(in srgb, var(--accent-warm) 6%, var(--entry));
+    justify-content: space-between;
+    gap: 0.45rem;
+    min-height: 92px;
+    padding: 0.8rem 0.9rem;
+    border-radius: 16px;
+    border: 1px solid color-mix(in srgb, var(--accent-purple) 16%, var(--border));
+    background: color-mix(in srgb, var(--accent-purple) 4%, var(--entry));
+    box-shadow: 0 16px 30px color-mix(in srgb, var(--accent-warm) 8%, transparent);
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+
+.paginav a:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--accent-purple) 24%, var(--border));
+    box-shadow: 0 18px 36px color-mix(in srgb, var(--accent-warm) 12%, transparent);
+}
+
+.paginav-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
 }
 
 .paginav .title {
+    color: var(--secondary);
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-size: 0.72rem;
-    color: var(--accent-warm);
+    font-size: 0.58rem;
+    font-weight: 600;
+}
+
+.paginav .arrow {
+    color: var(--accent-purple);
+    font-size: 0.8rem;
+    line-height: 1;
 }
 
 .paginav .label {
     color: var(--primary);
-    line-height: 1.45;
+    font-size: clamp(0.92rem, 1.15vw, 1.05rem);
+    line-height: 1.22;
+    text-wrap: balance;
 }
 
 .paginav .prev,
 .paginav .next {
-    width: 50%;
+    width: 100%;
 }
 
 .paginav .prev {
-    align-items: flex-start;
     text-align: left;
 }
 
 .paginav .next {
-    margin-inline-start: auto;
-    align-items: flex-end;
     text-align: right;
+}
+
+.paginav-single a {
+    grid-column: 1 / -1;
 }
 
 @media (max-width: 640px) {
     .paginav {
-        flex-direction: column;
+        grid-template-columns: 1fr;
     }
 
     .paginav .prev,

@@ -4,8 +4,11 @@
 {{- partial "index_profile.html" . }}
 {{- else }} {{/* if not profileMode */}}
 
+{{- $term := .Data.Term }}
+{{- $isProductsTerm := and (eq .Kind `term`) (eq $term "products") }}
+
 {{- if not .IsHome | and .Title }}
-<header class="page-header">
+<header class="page-header{{ if $isProductsTerm }} page-header-products{{ end }}">
   {{- partial "breadcrumbs.html" . }}
   <h1>
     {{ .Title }}
@@ -52,18 +55,31 @@
 {{- else }}
 {{- $pages := union .RegularPages .Sections }}
 {{- $paginator := .Paginate $pages }}
-{{- $term := .Data.Term }}
+{{- if $term }}
+<div class="term-entry-grid{{ if $isProductsTerm }} product-entry-grid{{ end }}">
+{{- end }}
 {{- range $index, $page := $paginator.Pages }}
 
 {{- $class := "post-entry" }}
 {{- if $term }}
 {{- $class = "post-entry tag-entry" }}
 {{- end }}
+{{- if $isProductsTerm }}
+{{- $class = "post-entry tag-entry product-entry" }}
+{{- end }}
 
 <article class="{{ $class }}">
+  {{- $currentPage := . }}
+  {{- if not $isProductsTerm }}
   {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
   {{- partial "cover.html" (dict "cxt" . "IsSingle" false "isHidden" $isHidden) }}
+  {{- end }}
   <header class="entry-header">
+    {{- if $isProductsTerm }}
+    {{- with .Params.product_kind }}
+    <p class="entry-eyebrow">{{ . }}</p>
+    {{- end }}
+    {{- end }}
     <h2 class="entry-hint-parent">
       {{- .Title }}
       {{- if .Draft }}
@@ -78,23 +94,45 @@
   </header>
   {{- if (ne (.Param "hideSummary") true) }}
   <div class="entry-content">
+    {{- if $isProductsTerm }}
+    <p>{{ or .Description (.Summary | plainify | htmlUnescape) }}{{ if and .Truncated (not .Description) }}...{{ end }}</p>
+    {{- else }}
     <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+    {{- end }}
   </div>
   {{- end }}
-  {{- if not (.Param "hideMeta") }}
-  <footer class="entry-footer">
+  <footer class="entry-footer{{ if $isProductsTerm }} product-entry-footer{{ end }}">
+    {{- if $isProductsTerm }}
+    <div class="product-meta">
+      {{- with .Params.product_platform }}
+      <span class="product-chip">{{ . }}</span>
+      {{- end }}
+      <span class="product-updated">更新于 {{ .Date.Format "2006-01" }}</span>
+    </div>
+    <div class="product-actions">
+      <a class="product-link product-link-primary" href="{{ .RelPermalink }}">查看介绍</a>
+      {{- with $currentPage.Params.product_url }}
+      <a class="product-link product-link-secondary" href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ $currentPage.Params.product_cta_label | default "访问官网" }}</a>
+      {{- end }}
+    </div>
+    {{- else if not (.Param "hideMeta") }}
     {{- partial "post_meta.html" . -}}
+    {{- end }}
   </footer>
+  {{- if not $isProductsTerm }}
+  <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .RelPermalink }}"></a>
   {{- end }}
-  <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
 </article>
+{{- end }}
+{{- if $term }}
+</div>
 {{- end }}
 
 {{- if gt $paginator.TotalPages 1 }}
 <footer class="page-footer">
   <nav class="pagination">
     {{- if $paginator.HasPrev }}
-    <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">
+    <a class="prev" href="{{ $paginator.Prev.URL }}">
       «&nbsp;{{ i18n "prev_page" }}&nbsp;
       {{- if (.Param "ShowPageNums") }}
       {{- sub $paginator.PageNumber 1 }}/{{ $paginator.TotalPages }}
@@ -102,7 +140,7 @@
     </a>
     {{- end }}
     {{- if $paginator.HasNext }}
-    <a class="next" href="{{ $paginator.Next.URL | absURL }}">
+    <a class="next" href="{{ $paginator.Next.URL }}">
       {{- i18n "next_page" }}&nbsp;
       {{- if (.Param "ShowPageNums") }}
       {{- add 1 $paginator.PageNumber }}/{{ $paginator.TotalPages }}

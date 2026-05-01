@@ -1,15 +1,15 @@
 :root {
     --gap: 24px;
     --content-gap: 20px;
-    --nav-width: 1024px;
-    --main-width: 720px;
+    --nav-width: 1400px;
+    --main-width: 1000px;
     --header-height: 60px;
     --footer-height: 60px;
     --radius: 8px;
     --accent-purple: rgb(124, 58, 237);
     --accent-teal: rgb(13, 148, 136);
     --accent-warm: rgb(234, 88, 12);
-    --theme: rgb(252, 248, 255);
+    --theme: rgb(246, 246, 248);
     --entry: rgb(255, 252, 255);
     --primary: rgb(51, 34, 86);
     --secondary: rgb(102, 92, 130);
@@ -38,7 +38,7 @@
 }
 
 .list {
-    background: var(--code-bg);
+    background: var(--theme);
 }
 
 [data-theme="dark"] .list {

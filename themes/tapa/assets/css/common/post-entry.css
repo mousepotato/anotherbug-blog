@@ -37,14 +37,14 @@
     align-items: flex-start;
     justify-content: flex-start;
     min-height: 0;
-    max-width: 42rem;
+    max-width: 62rem;
     padding: 0;
     margin: calc(var(--gap) * 1.25) 0 calc(var(--gap) * 1.5) 0;
 }
 
 .home-info .entry-content {
     display: block;
-    max-width: 32rem;
+    max-width: 50rem;
     margin: 0 0 1.1rem;
     color: var(--content);
     font-size: 1.02rem;
@@ -56,7 +56,7 @@
 }
 
 .home-sections {
-    max-width: 42rem;
+    max-width: 62rem;
     margin: 0 0 calc(var(--gap) * 1.75) 0;
 }
 
@@ -90,9 +90,34 @@
     display: none;
 }
 
+.term-entry-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.35rem;
+    margin-top: 1.3rem;
+}
+
+.product-entry-grid {
+    margin-top: 1.7rem;
+}
+
+.tag-entry {
+    min-height: 220px;
+    margin-bottom: 0;
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: var(--entry);
+}
+
 .entry-header h2 {
     font-size: 24px;
     line-height: 1.3;
+}
+
+.tag-entry .entry-header h2 {
+    font-size: clamp(1.35rem, 2vw, 1.7rem);
+    line-height: 1.18;
+    font-weight: 700;
 }
 
 .entry-content {
@@ -106,9 +131,132 @@
     -webkit-line-clamp: 2;
 }
 
+.tag-entry .entry-content {
+    margin: 0.85rem 0 0;
+    font-size: 1rem;
+    line-height: 1.72;
+    color: var(--content);
+    -webkit-line-clamp: 4;
+}
+
 .entry-footer {
     color: var(--secondary);
     font-size: 13px;
+}
+
+.tag-entry .entry-footer {
+    margin-top: 1rem;
+    font-size: 0.82rem;
+}
+
+.page-header-products .post-description {
+    max-width: 40rem;
+    margin-top: 0.75rem;
+    color: var(--secondary);
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+.product-entry {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 260px;
+    padding: 1.65rem;
+    border-radius: 16px;
+    background: var(--entry);
+}
+
+.product-entry .entry-hint-parent {
+    display: block;
+}
+
+.entry-eyebrow {
+    margin: 0 0 0.95rem;
+    color: var(--accent-warm);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.product-entry .entry-content {
+    margin-top: 1rem;
+    -webkit-line-clamp: 5;
+}
+
+.product-entry-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 0.85rem;
+    margin-top: 1.4rem;
+}
+
+.product-meta,
+.product-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.product-chip,
+.product-updated {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 0.42rem 0.8rem;
+    border: 1px solid color-mix(in srgb, var(--accent-teal) 22%, var(--border));
+    border-radius: 999px;
+    font-size: 0.82rem;
+    line-height: 1;
+    background: color-mix(in srgb, var(--accent-teal) 10%, transparent);
+}
+
+.product-updated {
+    color: var(--secondary);
+}
+
+.product-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1;
+    transition: transform 0.16s ease, background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+
+.product-link:hover {
+    transform: translateY(-1px);
+}
+
+.product-link-primary {
+    color: rgb(255, 252, 255);
+    background: var(--accent-purple);
+    border: 1px solid transparent;
+}
+
+.product-link-primary:hover {
+    color: rgb(255, 252, 255);
+    background: color-mix(in srgb, var(--accent-purple) 88%, var(--primary));
+}
+
+.product-link-secondary {
+    color: var(--accent-teal);
+    background: color-mix(in srgb, var(--accent-teal) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent-teal) 22%, var(--border));
+}
+
+.product-link-secondary:hover {
+    color: var(--accent-teal);
+    background: color-mix(in srgb, var(--accent-teal) 14%, transparent);
+    border-color: color-mix(in srgb, var(--accent-teal) 28%, var(--border));
 }
 
 .entry-link {
@@ -146,4 +294,18 @@
 
 .entry-header h2:hover {
     color: var(--accent-warm);
+}
+
+@media (max-width: 900px) {
+    .term-entry-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tag-entry {
+        min-height: 0;
+    }
+
+    .product-entry-footer {
+        align-items: flex-start;
+    }
 }

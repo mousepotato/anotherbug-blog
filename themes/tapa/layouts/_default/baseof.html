@@ -16,13 +16,16 @@
     {{- partial "head.html" . }}
 </head>
 
-{{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) }}
-<body class="list" id="top">
-{{- else }}
-<body id="top">
-{{- end }}
+{{- $bodyClass := "" -}}
+{{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) -}}
+  {{- $bodyClass = "list" -}}
+{{- end -}}
+{{- if eq .Type "thoughts" -}}
+  {{- $bodyClass = trim (printf "%s thoughts-page" $bodyClass) " " -}}
+{{- end -}}
+<body{{ if $bodyClass }} class="{{ $bodyClass }}"{{ end }} id="top">
     {{ partialCached "header.html" . .Page -}}
-    <main class="main">
+    <main class="main{{ if eq .Type "thoughts" }} main-thoughts{{ end }}">
         {{- block "main" . }}{{ end }}
     </main>
     {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
